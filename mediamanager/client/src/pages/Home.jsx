@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext'; // Contexto de autenticación
 import Gallery from '../components/Gallery'; // Componente de galería
 import contentService from '../services/contentService'; // Servicio para obtener los contenidos
-import './Home.css'; // Estilos específicos para esta página
+import '../styles/Home.css'; // Estilos específicos para esta página
 
 const Home = () => {
   // Estado para almacenar los contenidos multimedia
