@@ -1,25 +1,11 @@
-import { useContext, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import {AuthContextProvider, AuthContext} from './context/AuthContext';
 import { ContentProvider } from './context/ContentContext';
-import Gallery from './components/Gallery';
-import ContentDetail from './components/ContentDetail';
-import RegisterForm from './components/RegisterForm';
-import Home from './pages/Home' ;
-import Admin from './pages/Admin' ;
-import ContentPage from './pages/ContentPage';
+import AppRoutes from './routes/Routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-
-
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useContext(AuthContext);
-  if(!isAuthenticated){
-    return <Navigate to="/register" />;
-  }
-
-  return children;
-}
+//import { useContext, useEffect } from 'react'
 
 function App() {
 
@@ -27,22 +13,7 @@ function App() {
     <AuthContextProvider>
       <ContentProvider>
         <Router>
-          <div>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/content/:id" element={<ContentDetail />} />
-              <Route path="/register" element={<RegisterForm />} />
-              <Route path="/admin" element={
-                <ProtectedRoute>
-                  <Admin />
-                </ProtectedRoute>
-              }
-              />
-              <Route path="/content" element={<ContentPage />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </div>
+          <AppRoutes />
         </Router>
       </ContentProvider>
     </AuthContextProvider>
