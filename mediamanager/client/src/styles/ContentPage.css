@@ -1,0 +1,48 @@
+.content-page {
+    padding: 20px;
+  }
+  
+  .search-input {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .filters {
+    margin-bottom: 20px;
+  }
+  
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .content-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .content-item img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .video-thumbnail, .document-thumbnail {
+    height: 150px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .video-thumbnail::before {
+    content: "Video";
+  }
+  
+  .document-thumbnail::before {
+    content: "Document";
+  }
+  
