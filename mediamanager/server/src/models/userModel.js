@@ -1,11 +1,9 @@
-const userSchema = new Schema({
-    firstName: {
+const userModel = {
+    id: {
         type: String, 
-       
-        
     }, 
 
-    lastName: {
+    username: {
         type: String, 
         
     },
@@ -16,36 +14,18 @@ const userSchema = new Schema({
         unique: true
     },
 
-    password: {
+    role: {
         type: String, 
         
     },    
-    passwordCreated: password? true:false,
-    hasAllData: {
-        type: Boolean, 
-        default: false,
-        
-    },                                                    
-
-    cellNumber: {
-        type: Number, 
-       
-    },
     
-    dateOfBirth: Date,                                           
-    
-    verificationCode: {
-         type: String
-    },
-    
-    emailStatus: { 
+    createdAt: {
         type: String,
-        default: "UNVERIFIED" 
-    },                                                      
-            
-    nationality: {
+    },
+
+    updatedAt: {
         type: String,
     }
-}, )
+}
 
-export default model("User", userSchema);
+module.exports = userModel;
