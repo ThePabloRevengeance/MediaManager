@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const CONTENT_TABLE = process.env.CONTENT_TABLE;
+const CONTENT_TABLE = process.env.DYNAMO_TABLE_CONTENT;
 
 exports.getAllContents = async () => {
     const params = {
@@ -78,3 +78,5 @@ exports.deleteContent = async (id) => {
         throw new Error(`Error al eliminar contenido: ${error.message}`);
     }
 };
+
+module.exports = { getAllContents, getContentById, addContent, updateContent, deleteContent }

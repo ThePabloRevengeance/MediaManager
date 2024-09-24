@@ -1,0 +1,103 @@
+service: multimedia-content-managment
+
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-2
+  environment:
+    CONTENT_TABLE: CONTENT
+    MY_AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
+    MY_AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
+    MY_AWS_REGION: ${env:AWS_REGION}
+
+functions:
+  #contentController
+  getContent:
+    handler: src/controllers/contentController.getAllContents
+    events:
+      - http:
+          path: contents
+          method: get
+    environment:
+      CONTENT_TABLE: ${self:provider.environment.CONTENT_TABLE} 
+  postContent:
+    handler: src/controllers/contentController.addContent
+    events:
+      - http:
+          path: contents
+          method: post
+    environment:
+      CONTENT_TABLE: ${self:provider.environment.CONTENT_TABLE} 
+  updateContent:
+    handler: src/controllers/contentController.updateContent
+    events:
+      - http:
+          path: contents/{id}
+          method: put
+    environment:
+      CONTENT_TABLE: ${self:provider.environment.CONTENT_TABLE} 
+  deleteContent:
+    handler: src/controllers/contentController.deleteContent
+    events:
+      - http:
+          path: contents/{id}
+          method: delete
+    environment:
+      CONTENT_TABLE: ${self:provider.environment.CONTENT_TABLE} 
+
+
+  # userController
+  getUser:
+    handler: src/controllers/userController.getUser
+    events:
+      - http:
+          path: users/{id}
+          method: get
+  createUser:
+    handler: src/controllers/userController.createUser
+    events:
+      - http:
+          path: users
+          method: post
+  updateUser:
+    handler: src/controllers/userController.updateUser
+    events:
+      - http:
+          path: users/{id}
+          method: put
+  deleteUser:
+    handler: src/controllers/userController.deleteUser
+    events:
+      - http:
+          path: users/{id}
+          method: delete
+
+resources:
+  Resources:
+    #ContentTable:
+     #Type: AWS::DynamoDB::Table
+     # Properties:
+        #TableName: CONTENT
+        #AttributeDefinitions:
+          #- AttributeName: id
+          #  AttributeType: S
+        #KeySchema:
+        #  - AttributeName: id
+          #  KeyType: HASH
+       # BillingMode: PAY_PER_REQUEST
+    UserTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: USER
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST  
+
+plugins:
+  - serverless-offline

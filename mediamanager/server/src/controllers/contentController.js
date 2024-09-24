@@ -1,9 +1,9 @@
-const dynamoService = require('../services/dynamoService');
+const { getAllContents, getContentById, addContent, updateContent, deleteContent } = require('../services/dynamoService'); //dynamoService
 const s3Service = require('../services/s3Service');
 
 exports.getAllContents = async (req, res) => {
     try{
-        const contents = await dynamoService.getAllContents();
+        const contents = await getAllContents(); //dynamoService.
         res.json(contents);
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener los contenidos' });
@@ -13,7 +13,7 @@ exports.getAllContents = async (req, res) => {
 exports.getContentById = async (req, res) => {
     const { id } = req.params;
     try {
-        const content = await dynamoService.getContentById(id);
+        const content = await getContentById(id); //dynamoService.
         if(!content){
             return res.status(404).json({ error: 'Contenido no encontrado'});
         }
@@ -29,13 +29,14 @@ exports.addContent = async (req, res) => {
     try{
         const s3Result = await s3Service.uploadFile(file);
         const newContent = {
+            id: s3Result.Key,
             title,
             description,
             category,
             fileUrl: s3Result.Location,
         };
 
-        await dynamoService.addContent(newContent);
+        await addContent(newContent); //dynamoService.
 
         res.status(201).json({ message: 'Contenido añadido exitosamente', content: newContent });
     } catch (error) {
@@ -48,7 +49,7 @@ exports.updateContent = async (req, res) => {
     const { title, description, category, file} = req.body;
 
     try {
-        let updateContent = {
+        let updatedContent = {
             title, 
             description,
             category,
@@ -56,10 +57,10 @@ exports.updateContent = async (req, res) => {
 
         if(file) {
             const s3Result = await s3Service.uploadFile(file);
-            updateContent.fileUrl = s3Result.Location;
+            updatedContent.fileUrl = s3Result.Location;
         }
 
-        await dynamoService.updateContent(id, updateContent);
+        await updateContent(id, updatedContent); //dynamoService.
 
         res.json({ message: 'Contenido actualizado exitosamente' });
     } catch (error) {
@@ -71,7 +72,7 @@ exports.deleteContent = async (req, res) => {
     const { id } = req.params;
 
     try{
-        const content = await dynamoService.getContentById(id);
+        const content = await getContentById(id); //dynamoService.
         if(!content) {
             return res.status(404).json({ error: 'Contenido no encontrado' });
         }
@@ -80,7 +81,7 @@ exports.deleteContent = async (req, res) => {
             await s3Service.deleteFile(content.fileUrl);
         }
 
-        await dynamoService.deleteContent(id);
+        await deleteContent(id); //dynamoService.
 
         res.json({ message: 'Contenido eliminado exitosamente '});
     } catch (error) {
@@ -88,7 +89,7 @@ exports.deleteContent = async (req, res) => {
     }
 };
 
-
+module.exports = {getAllContents, getContentById, addContent, updateContent, deleteContent}
 /*
 exports.getContents = async (req, res) => {
     try {

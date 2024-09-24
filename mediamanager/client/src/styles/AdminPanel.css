@@ -1,0 +1,22 @@
+.admin-panel {
+    padding: 20px;
+  }
+  
+  .new-content-form, .edit-content-form {
+    margin-bottom: 20px;
+  }
+  
+  .content-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .content-list th, .content-list td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    margin: 5px;
+  }
+  

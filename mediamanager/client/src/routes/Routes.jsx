@@ -21,9 +21,9 @@ const AppRoutes = () => {
             <Route path="/content/:id" element={<ContentDetail />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/admin" element={
-                <ProtectedRoute>
+                
                   <Admin />
-                </ProtectedRoute>
+                
             }
             />
             <Route path="/content" element={<ContentPage />} />

@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect} from 'react';
-import { Amplify, Auth} from 'aws-amplify';
+import {Amplify} from 'aws-amplify';
+//import { Auth } from 'aws-amplify';
+import { fetchAuthSession } from 'aws-amplify/auth'
 import awsconfig from '../aws-exports';
 
 Amplify.configure(awsconfig);
@@ -13,7 +15,7 @@ export const AuthContextProvider = ({children}) => {
     useEffect(() => {
         const checkUserAuthentication = async () => {
             try{
-                await Auth.currentAuthenticatedUser();
+                await fetchAuthSession.currentAuthenticatedUser();
                 setIsAuthenticated(true);
             } catch (error) {
                 setIsAuthenticated(false);

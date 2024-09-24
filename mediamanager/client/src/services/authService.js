@@ -1,8 +1,13 @@
-import { Auth } from 'aws-amplify';
+import {Amplify}  from 'aws-amplify'; //{ Auth }
+import { fetchAuthSession } from 'aws-amplify/auth'
+//import { Auth } from 'aws-amplify/auth';
+import { signUp } from 'aws-amplify/auth';
+import awsconfig from '../aws-exports';
 
+Amplify.configure(awsconfig);
 export const registerUser = async (username, email, password) => {
     try{
-        await Auth.signUp({
+        await signUp({
             username,
             password,
             attributes: {

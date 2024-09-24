@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Gallery = ({ contents }) => {
+    if (!Array.isArray(contents)) {
+        return <p>Error: Los contenidos no están disponibles.</p>;
+    }
+    
     return (
         <div className='gallery'>
             {contents.length === 0 ? (

@@ -19,6 +19,7 @@ const Home = () => {
     const fetchContents = async () => {
       try {
         const data = await contentService.getAllContents(); // Llama al servicio para obtener todos los contenidos
+        console.log(data);
         setContents(data);
         setLoading(false);
       } catch (err) {
@@ -31,9 +32,9 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* Bienvenida y navegación */}
+      {/* Bienvenida y navegación */} 
       <header className="home-header">
-        <h1>Bienvenido a la Plataforma de Gestión de Contenidos Multimedia</h1>
+        <h1>MediaManager <br /> Plataforma de Gestión de Contenidos Multimedia</h1>
         <nav>
           <ul>
             {/* Si el usuario está autenticado y tiene rol de administrador, mostrar enlace al panel de administración */}

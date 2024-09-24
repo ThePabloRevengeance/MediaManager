@@ -1,12 +1,15 @@
 const express = require('express');
 const contentController = require('../controllers/contentController');
 const router = express.Router();
+const multer = require('multer');
+
+const upload = multer();
 
 router.get('/contents', contentController.getAllContents);
 
 router.get('/contents/:id', contentController.getContentById);
 
-router.post('/contents', contentController.addContent);
+router.post('/contents', upload.single('file'), contentController.addContent);
 
 router.put('/content/:id', contentController.updateContent);
 
