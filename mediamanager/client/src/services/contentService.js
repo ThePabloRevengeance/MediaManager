@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000'; // URL de la API
+const API_URL = import.meta.env.VITE_API_URL   || 'http://localhost:3000' ;// process.env.REACT_APP_API_URL ; // URL de la API  
+console.log('API_URL:', API_URL);  // Debería mostrar la URL
 
 // Función para obtener todos los contenidos
 export const getAllContents = async () => {
@@ -13,9 +14,21 @@ export const getContentById = async (id) => {
   return response.data;
 };
 
+export const createContent = async (newContent) => {
+  const response = await axios.post(`${API_URL}/contents`, newContent);
+  return response.data;
+}
+
+export const deleteContent = async (id) => {
+  const response = await axios.delete(`${API_URL}/contents/${id}`);
+  return response.data;
+}
+
 const contentService = {
   getAllContents,
-  getContentById
+  getContentById,
+  createContent,
+  deleteContent
 };
 
 export default contentService;

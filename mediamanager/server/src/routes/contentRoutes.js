@@ -5,14 +5,14 @@ const multer = require('multer');
 
 const upload = multer();
 
-router.get('/contents', contentController.getAllContents);
+router.get('/', contentController.getAllContents);
 
-router.get('/contents/:id', contentController.getContentById);
+router.get('/:id', contentController.getContentById);
 
-router.post('/contents', upload.single('file'), contentController.addContent);
+router.post('/', upload.single('file'), contentController.addContent);
 
-router.put('/content/:id', contentController.updateContent);
+router.put('/:id', contentController.updateContent);
 
-router.delete('/content/:id', contentController.deleteContent);
+router.delete('/:id', contentController.deleteContent);
 
 module.exports = router;

@@ -114,15 +114,18 @@ const AdminPanel = () => {
                             <th>ID</th>
                             <th>Titulo</th>
                             <th>Descripcion</th>
+                            <th>Link</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {contents.map((content) => (
+                        {contents && contents.length > 0 ? (
+                            contents.map((content) => (
                             <tr key={content.id}>
                                 <td>{content.id}</td>
                                 <td>{content.title}</td>
                                 <td>{content.description}</td>
+                                <td>{content.fileUrl}</td>
                                 <td>
                                     <button onClick={() => handleSelectContent(content)}>
                                         Editar
@@ -132,7 +135,13 @@ const AdminPanel = () => {
                                     </button>
                                 </td>
                             </tr>
-                        ))}
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="4">No hay contenidos disponibles</td>
+                        </tr>
+                    )
+                    }
                     </tbody>
                 </table>
             
@@ -210,7 +219,8 @@ const AdminPanel = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user) => (
+                        {users && users.length > 0 ? (
+                            users.map((user) => (
                             <tr key={user.id}>
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>
@@ -221,7 +231,13 @@ const AdminPanel = () => {
                                     <button onClick={() => deleteUser(user.id)}>Eliminar</button>
                                 </td>
                             </tr>
-                        ))}
+                        ))
+                    ) : (
+                        <tr>
+                        <td colSpan="4">No hay contenidos disponibles</td>
+                        </tr>
+                    )
+                    }
                     </tbody>
                 </table>
 

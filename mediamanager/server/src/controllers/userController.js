@@ -1,16 +1,20 @@
 const dynamoService = require('../services/dynamoService');
+const cognitoService = require('../services/cognitoService');
 const UserModel = require('../models/userModel');
 
-exports.getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
     try{
-        const users = await dynamoService.scanTable('Users');
-        res.status(200).json(users);
+        const dynamoUsers = await dynamoService.scanTable('Users');
+        const cognitoUsers = await cognitoService.listUsers();
+
+        const allUsers = [...dynamoUsers, ...cognitoUsers]
+        res.status(200).json(allUsers);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener los usuarios', error});
     }
 };
 
-exports.getUserById = async (req, res) => {
+const getUserById = async (req, res) => {
     const { id } = req.params;
     try{
         const user = await dynamoService.getItem('Users', {id});
@@ -23,7 +27,7 @@ exports.getUserById = async (req, res) => {
     }
 };
 
-exports.createUser = async (req, res) => {
+const createUser = async (req, res) => {
     const {id, username, email, role} = req.body;
     const newUser = {
         id,
@@ -42,7 +46,7 @@ exports.createUser = async (req, res) => {
     }
 };
 
-exports.updateUser = async(req, res) => {
+const updateUser = async(req, res) => {
     const {id} = req.params;
     const {username, email, role} = req.body;
     const updatedUser = {
@@ -61,7 +65,7 @@ exports.updateUser = async(req, res) => {
     }
 };
 
-exports.deleteUser = async(req, res) => {
+const deleteUser = async(req, res) => {
     const {id} = req.params;
     try{
         await dynamoService.deleteItem('Users', {id});
@@ -70,3 +74,5 @@ exports.deleteUser = async(req, res) => {
         res.status(500).json({ message: 'Error al eliminar el usuario', error});
     }
 };
+
+module.exports = {getAllUsers, getUserById, createUser, updateUser, deleteUser};

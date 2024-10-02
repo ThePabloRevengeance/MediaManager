@@ -7,12 +7,14 @@ export const ContentProvider = ({ children }) => {
     const [contents, setContents] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const fetchContents = async () => {
+        const data = await getAllContents();
+        setContents(data);
+        setLoading(false);
+    };
+
     useEffect(() => {
-        const fetchContents = async () => {
-            const data = await getAllContents();
-            setContents(data);
-            setLoading(false);
-        };
+       
         fetchContents();
     }, []);
 
@@ -21,7 +23,7 @@ export const ContentProvider = ({ children }) => {
     };
 
     return (
-        <ContentContext.Provider value = {{ contents, loading, fetchContentById}}>
+        <ContentContext.Provider value = {{ contents, loading, fetchContents, fetchContentById}}>
             {children}
         </ContentContext.Provider>
     )

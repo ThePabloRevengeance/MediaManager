@@ -1,8 +1,9 @@
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const CONTENT_TABLE = process.env.DYNAMO_TABLE_CONTENT;
+const CONTENT_TABLE = "CONTENT"//process.env.DYNAMO_TABLE_CONTENT;
 
-exports.getAllContents = async () => {
+console.log("CONTENT TABLE:", CONTENT_TABLE);
+const getAllContents = async () => {
     const params = {
         TableName: CONTENT_TABLE,
     };
@@ -15,7 +16,7 @@ exports.getAllContents = async () => {
     }
 };
 
-exports.getContentById = async (id) => {
+const getContentById = async (id) => {
     const params = {
         TableName: CONTENT_TABLE,
         Key: { id },
@@ -29,23 +30,29 @@ exports.getContentById = async (id) => {
     }
 };
 
-exports.addContent = async (content) => {
+const addContent = async ({contentId, title, description, category, fileUrl/*content*/}) => {
     const params = {
         TableName: CONTENT_TABLE,
         Item: {
-            id: content.id || new Date().toISOString(),
-            ...content,
+            id: contentId/*content.id*/ || new Date().toISOString(),
+            title,
+            description,
+            category,
+            fileUrl
+            //...content,
         },
     };
-
+    console.log("AAAAAAAAAH", params);
     try{
+        console.log("MATENMEEEEEEEEE");
         await dynamoDb.put(params).promise();
+        console.log("DEBÏ ESTUDIAR ADMINISTRACION DE EMPRESA");
     } catch (error) {
-        throw new Error(`Error al añadir contenido: ${error.message}`);
+        throw new Error(`Error al añadir contenido: ${error}`);
     }
 };
 
-exports.updateContent = async (id, updateContent) => {
+const updateContent = async (id, updateContent) => {
     const params = {
         TableName: CONTENT_TABLE,
         Key: { id },
@@ -66,7 +73,7 @@ exports.updateContent = async (id, updateContent) => {
     }
 };
 
-exports.deleteContent = async (id) => {
+const deleteContent = async (id) => {
     const params = {
         TableName: CONTENT_TABLE,
         Key: { id },

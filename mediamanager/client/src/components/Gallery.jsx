@@ -15,7 +15,7 @@ const Gallery = ({ contents }) => {
                     <div key={content.id} className="gallery-item">
                         <h3>{content.title}</h3>
                         <Link to={`/content/${content.id}`}>
-                            <img src={content.thumbnailUrl} alt={content.title} />
+                            <img src={content.imageUrl} alt={content.title} />
                         </Link>
                     </div>
                 ))

@@ -2,7 +2,8 @@ const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 const BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
-exports.uploadFile = async (file) => {
+const uploadFile = async (file) => {
+    console.log("LEL");
     const params = {
         Bucket: BUCKET_NAME,
         Key: `content/${Date.now()}_${file.originalname}`,
@@ -10,7 +11,7 @@ exports.uploadFile = async (file) => {
         ContentType: file.mimetype,
         ACL: 'public-read'
     };
-
+    console.log("SAS");
     try{
         const result = await s3.upload(params).promise();
         return result.Key;
@@ -19,7 +20,7 @@ exports.uploadFile = async (file) => {
     }
 };
 
-exports.deleteFile = async (fileUrl) => {
+const deleteFile = async (fileUrl) => {
     const fileName = fileUrl.split('/').pop();
 
     const params = {
