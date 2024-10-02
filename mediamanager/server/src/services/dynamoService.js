@@ -42,11 +42,8 @@ const addContent = async ({contentId, title, description, category, fileUrl/*con
             //...content,
         },
     };
-    console.log("AAAAAAAAAH", params);
     try{
-        console.log("MATENMEEEEEEEEE");
         await dynamoDb.put(params).promise();
-        console.log("DEBÏ ESTUDIAR ADMINISTRACION DE EMPRESA");
     } catch (error) {
         throw new Error(`Error al añadir contenido: ${error}`);
     }
