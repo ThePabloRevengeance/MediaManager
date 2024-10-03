@@ -125,7 +125,7 @@ const AdminPanel = () => {
                                 <td>{content.id}</td>
                                 <td>{content.title}</td>
                                 <td>{content.description}</td>
-                                <td>{content.fileUrl}</td>
+                                <td><a>{content.fileUrl}</a></td>
                                 <td>
                                     <button onClick={() => handleSelectContent(content)}>
                                         Editar
@@ -164,7 +164,7 @@ const AdminPanel = () => {
                             placeholder="Descripcion"
                             value={selectedContent.description}
                             onChange={(e) => 
-                                setSelectedContent({ ...selectedContent, title: e.target.value })
+                                setSelectedContent({ ...selectedContent, description: e.target.value })
                             }
                         />
                         <input

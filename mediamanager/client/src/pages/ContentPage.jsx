@@ -26,7 +26,7 @@ const ContentPage = () => {
             type="text"
             placeholder="Buscando contenido..."
             value={searchTerm}
-            onCharge={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className='search-input' 
             />
 
