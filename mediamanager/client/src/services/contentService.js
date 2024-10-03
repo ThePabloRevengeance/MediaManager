@@ -19,6 +19,11 @@ export const createContent = async (newContent) => {
   return response.data;
 }
 
+const updateContent = async (id, updatedContent) => {
+  const response = await axios.put(`${API_URL}/contents/${id}`, updatedContent);
+  return response.data;
+};
+
 export const deleteContent = async (id) => {
   const response = await axios.delete(`${API_URL}/contents/${id}`);
   return response.data;
@@ -28,6 +33,7 @@ const contentService = {
   getAllContents,
   getContentById,
   createContent,
+  updateContent,
   deleteContent
 };
 
