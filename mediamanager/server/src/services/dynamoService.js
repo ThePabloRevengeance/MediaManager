@@ -50,19 +50,27 @@ const addContent = async ({contentId, title, description, category, fileUrl/*con
 };
 
 const updateContent = async (id, updateContent) => {
+    
+    let updateExpression = 'set title = :title, description = :description, fileUrl = :fileUrl';
+    const expressionAttributeValues = {
+        ':title': updateContent.title,
+        ':description': updateContent.description,
+        ':fileUrl': updateContent.fileUrl || null,
+    };
+
+    if (updateContent.category) {
+        updateExpression += ', category = :category';
+        expressionAttributeValues[':category'] = updateContent.category;
+    }
+
     const params = {
         TableName: CONTENT_TABLE,
         Key: { id },
-        UpdateExpression: 'set title = :title, description = :description, category = :category, fileUrl = :fileUrl',
-        ExpressionAttributeValues: {
-            ':title': updateContent.title,
-            ':description': updateContent.description,
-            ':category': updateContent.category,
-            ':fileUrl': updateContent.fileUrl || null,
-        },
+        UpdateExpression: updateExpression,
+        ExpressionAttributeValues: expressionAttributeValues,
         ReturnValues: 'UPDATED_NEW',
     };
-
+    
     try {
         await dynamoDb.update(params).promise();
     } catch (error) {

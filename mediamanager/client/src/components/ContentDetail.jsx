@@ -12,7 +12,7 @@ const ContentDetail = () => {
     useEffect(() => {
         const fetchContent = async () => {
             const fetchedContent = await fetchContentById(id);
-            setContent(fetchContent);
+            setContent(fetchedContent);
             setLoading(false);
         };
 
@@ -35,6 +35,7 @@ const ContentDetail = () => {
             <p>{description}</p>
             <p><strong>Type:</strong> {type} </p>
             <p><strong>Uploaded on: </strong> {new Date(createdAt).toLocaleDateString()}</p>
+            
 
             {type === 'image' && <img src={url} alt={title} className='content-image' />}
             {type === 'video' && (

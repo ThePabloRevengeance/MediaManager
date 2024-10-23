@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/Gallery.css'
 
 const Gallery = ({ contents }) => {
     if (!Array.isArray(contents)) {
@@ -15,7 +16,7 @@ const Gallery = ({ contents }) => {
                     <div key={content.id} className="gallery-item">
                         <h3>{content.title}</h3>
                         <Link to={`/content/${content.id}`}>
-                            <img src={content.imageUrl} alt={content.title} />
+                            <img src={content.fileUrl} alt={content.title} />
                         </Link>
                     </div>
                 ))

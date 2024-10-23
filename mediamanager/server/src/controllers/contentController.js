@@ -21,7 +21,11 @@ const getAllContents = async (event) => {
 
 // Obtener contenido por ID
 const getContentById = async (event) => {
-    const { id } = event.pathParameters;
+    const { id } = event.pathParameters || {};
+    console.log(id);
+    if (!id) {
+        return response(400, { error: 'ID de contenido no proporcionado' });
+    }
     try {
         const content = await getDynamoContentsById(id);
         if (!content) {

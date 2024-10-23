@@ -20,14 +20,46 @@ functions:
       - http:
           path: contents
           method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
     environment:
       CONTENT_TABLE: ${self:provider.environment.CONTENT_TABLE} 
+  getContentById:
+    handler: src/controllers/contentController.getContentById
+    events:
+      - http:
+          path: contents/{id}
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+    environment:
+      CONTENT_TABLE: ${self:provider.environment.CONTENT_TABLE}   
   postContent:
     handler: src/controllers/contentController.addContent
     events:
       - http:
           path: contents
           method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
     environment:
       CONTENT_TABLE: ${self:provider.environment.CONTENT_TABLE} 
   updateContent:
@@ -36,6 +68,14 @@ functions:
       - http:
           path: contents/{id}
           method: put
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
     environment:
       CONTENT_TABLE: ${self:provider.environment.CONTENT_TABLE} 
   deleteContent:
@@ -44,6 +84,14 @@ functions:
       - http:
           path: contents/{id}
           method: delete
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
     environment:
       CONTENT_TABLE: ${self:provider.environment.CONTENT_TABLE} 
 
@@ -55,25 +103,56 @@ functions:
       - http:
           path: users/{id}
           method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
   createUser:
     handler: src/controllers/userController.createUser
     events:
       - http:
           path: users
           method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
   updateUser:
     handler: src/controllers/userController.updateUser
     events:
       - http:
           path: users/{id}
           method: put
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
   deleteUser:
     handler: src/controllers/userController.deleteUser
     events:
       - http:
           path: users/{id}
           method: delete
-
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
 resources:
   Resources:
     #ContentTable:
